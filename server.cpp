@@ -161,7 +161,7 @@ void Server::rcv_snd(int n){
         len = read(connfds[n] , temp , BUFFSIZE);   //获取客户端信息
         if (len > 0)
         {
-            temp[len - 1] = '\0';
+            temp[len] = '\0';
             if (strcmp(temp,"bye")  == 0)   //客户端发送bye结束连接
             {
                 close(connfds[n]);
