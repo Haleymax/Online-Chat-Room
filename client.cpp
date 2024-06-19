@@ -53,6 +53,7 @@ bool Client::connectToServer(){
             perror("Fail to connect");
             return false;
         }
+        cout << "成功连接到服务器" << endl;
         return true;
     }
 
