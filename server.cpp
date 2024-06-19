@@ -129,3 +129,67 @@ void Server::quit(){
     }
     
 }
+
+//处理客户端信息的函数
+void Server::rcv_snd(int n){
+    char name[32];
+    char buf[BUFFSIZE];
+    time_t ticks;
+    int len;
+    char *hostname = "Haley's Server :";
+    write(connfds[n], hostname, strlen(hostname));
+    len = read(connfds[n] , name , 32);   //获取客户端主机地址
+    if (len > 0)
+    {
+        name[len -1] = '\0';      //默认末尾存在一个换行符将其转换为空格strcpy的终结符
+    }
+    
+    strcpy(buf,name);
+    strcat(buf,"\tjion in\n\0");   //添加加入的提示信息
+    for (size_t i = 0; i < MAXMEN; i++)
+    {
+        if (connfds[i] != -1)
+        {
+            write(connfds[i],buf,strlen(buf));
+        }
+        
+    }
+
+    while (true)
+    {
+        char temp[BUFFSIZE];
+        len = read(connfds[n] , temp , BUFFSIZE);   //获取客户端信息
+        if (len > 0)
+        {
+            temp[len - 1] = '\0';
+            if (strcmp(temp,"bye")  == 0)   //客户端发送bye结束连接
+            {
+                close(connfds[n]);
+                connfds[n] = -1;
+                return;
+            }
+
+            ticks = time(NULL);
+            string mytime = ctime(&ticks);  //获取当前时间
+            mytime.erase(mytime.find_last_not_of(" \n\r\t") + 1); 
+            string message = string(name) + "\t" + mytime + "\r\t" + temp + "\n";
+
+            for (size_t i = 0; i < MAXMEN; i++)
+            {
+                if (connfds[i] != -1)
+                {
+                    write(connfds[i], message.c_str(), message.size());
+                }
+                
+            }
+            
+
+        }
+        
+
+
+    }
+    
+    
+
+}
