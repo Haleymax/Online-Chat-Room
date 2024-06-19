@@ -113,4 +113,19 @@ void Server::Start(){
 
 }
 
-
+//实现服务器的退出(在一个单独的线程中运行监听)
+void Server::quit(){
+    string msg;
+    while (true)
+    {
+        cin >> msg;
+        if (msg == "quit")
+        {
+            cout << "服务器运行结束......" << endl;
+            close(listenfd);
+            exit(EXIT_SUCCESS);
+        }
+        
+    }
+    
+}
