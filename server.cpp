@@ -174,6 +174,7 @@ void Server::rcv_snd(int n){
             mytime.erase(mytime.find_last_not_of(" \n\r\t") + 1); 
             string message = string(name) + "\t" + mytime + "\r\t" + temp + "\n";
 
+            //将信息发送给每一个用户
             for (size_t i = 0; i < MAXMEN; i++)
             {
                 if (connfds[i] != -1)
