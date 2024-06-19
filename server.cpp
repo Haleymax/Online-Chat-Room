@@ -136,12 +136,12 @@ void Server::rcv_snd(int n){
     char buf[BUFFSIZE];
     time_t ticks;
     int len;
-    char *hostname = "Haley's Server :";
+    char *hostname = "wello come";
     write(connfds[n], hostname, strlen(hostname));
     len = read(connfds[n] , name , 32);   //获取客户端主机地址
     if (len > 0)
     {
-        name[len -1] = '\0';      //默认末尾存在一个换行符将其转换为空格strcpy的终结符
+        name[len] = '\0';      //默认末尾存在一个换行符将其转换为空格strcpy的终结符
     }
     
     strcpy(buf,name);
