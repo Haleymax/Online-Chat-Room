@@ -67,7 +67,8 @@ void Client::sendMessage(){
     write(sockfd , name , strlen(name));
 
     while (true)
-    {
+    {   
+        cout << "输入需要发送的信息：";
         cin.getline(buf,BUFFSIZE);
         write(sockfd , buf , strlen(buf));
         if (strcmp(buf,"bye") == 0)
