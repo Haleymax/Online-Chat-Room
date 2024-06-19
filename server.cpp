@@ -179,17 +179,16 @@ void Server::rcv_snd(int n){
                 if (connfds[i] != -1)
                 {
                     write(connfds[i], message.c_str(), message.size());
-                }
-                
-            }
-            
-
+                }  
+            } 
         }
-        
-
-
     }
-    
-    
 
+}
+
+
+int main(){
+    Server server;
+    server.Start();
+    return 0;
 }
